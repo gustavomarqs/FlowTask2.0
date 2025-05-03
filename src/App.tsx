@@ -6,6 +6,9 @@ import AchievementsPage from './pages/AchievementsPage';
 import ThoughtsPage from './pages/ThoughtsPage';
 import ConfiguracoesPage from './pages/ConfiguracoesPage';
 import NotFound from './pages/NotFound';
+import { TaskCard } from "../components/cards/TaskCard";
+import { AchievementCard } from "../components/cards/AchievementCard";
+import { ThoughtCard } from "../components/cards/ThoughtCard";
 
 const App: React.FC = () => {
   return (

@@ -1,36 +1,39 @@
 import { useState } from "react";
-import { TaskForm } from "../components/tasks/TaskForm";
+import { EntryForm } from "../components/forms/EntryForm";
+import { useEntryContext } from "../context/EntryContext";
 
 const TasksPage = () => {
-  const [isTaskFormOpen, setIsTaskFormOpen] = useState(false);
+  const { entries, addEntry, editEntry } = useEntryContext();
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [editData, setEditData] = useState(null);
 
   const handleSave = (data: any) => {
-    console.log("Dados salvos:", data);
-    // Lógica para salvar ou editar a tarefa
+    if (data.id) {
+      editEntry({ ...data, type: "task" });
+    } else {
+      addEntry({ ...data, id: Date.now().toString(), type: "task" });
+    }
+    setIsFormOpen(false);
   };
 
   return (
-    <div className="space-y-8">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-[var(--primary)]">Minhas Tarefas</h1>
-        <button
-          onClick={() => {
-            setEditData(null);
-            setIsTaskFormOpen(true);
-          }}
-          className="bg-[var(--primary)] text-[var(--bg-dark)] px-4 py-2 rounded-lg hover:bg-[var(--secondary)]"
-        >
-          + Nova Tarefa
-        </button>
+    <div>
+      <button onClick={() => setIsFormOpen(true)}>+ Nova Tarefa</button>
+      {isFormOpen && (
+        <EntryForm
+          type="task"
+          onSave={handleSave}
+          onClose={() => setIsFormOpen(false)}
+          editData={editData}
+        />
+      )}
+      <div>
+        {entries
+          .filter((entry) => entry.type === "task")
+          .map((entry) => (
+            <div key={entry.id}>{entry.title}</div>
+          ))}
       </div>
-      <TaskForm
-        isOpen={isTaskFormOpen}
-        onClose={() => setIsTaskFormOpen(false)}
-        onSave={handleSave}
-        editData={editData}
-        type="task"
-      />
     </div>
   );
 };
