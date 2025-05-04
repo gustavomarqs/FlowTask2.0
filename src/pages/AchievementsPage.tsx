@@ -24,7 +24,7 @@ const AchievementsPage = () => {
         <h1 className="text-3xl font-bold text-[var(--primary)]">Minhas Conquistas</h1>
         <button
           onClick={() => {
-            setEditData(null);
+            setEditData(undefined); // Substitua null por undefined
             setIsAchievementFormOpen(true);
           }}
           className="bg-[var(--primary)] text-[var(--bg-dark)] px-4 py-2 rounded-lg hover:bg-[var(--secondary)]"

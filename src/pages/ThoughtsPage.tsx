@@ -3,7 +3,7 @@ import { TaskForm } from "../components/tasks/TaskForm";
 
 const ThoughtsPage = () => {
   const [isThoughtFormOpen, setIsThoughtFormOpen] = useState(false);
-  const [editData, setEditData] = useState(null);
+  const [editData, setEditData] = useState<ItemData | undefined>(undefined);
 
   const handleSave = (data: any) => {
     console.log("Pensamento salvo:", data);
@@ -16,7 +16,7 @@ const ThoughtsPage = () => {
         <h1 className="text-3xl font-bold text-[var(--primary)]">Meus Pensamentos</h1>
         <button
           onClick={() => {
-            setEditData(null);
+            setEditData(undefined); // Substitua null por undefined
             setIsThoughtFormOpen(true);
           }}
           className="bg-[var(--primary)] text-[var(--bg-dark)] px-4 py-2 rounded-lg hover:bg-[var(--secondary)]"

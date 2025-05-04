@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { EntryForm } from "../components/forms/EntryForm";
 import { useEntryContext } from "../context/EntryContext";
+import { TaskCard } from "../components/cards/TaskCard";
 
 const TasksPage = () => {
   const { entries, addEntry, editEntry } = useEntryContext();
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editData, setEditData] = useState(null);
+  const [editData, setEditData] = useState<ItemData | undefined>(undefined);
 
   const handleSave = (data: any) => {
     if (data.id) {
@@ -18,7 +19,14 @@ const TasksPage = () => {
 
   return (
     <div>
-      <button onClick={() => setIsFormOpen(true)}>+ Nova Tarefa</button>
+      <button
+        onClick={() => {
+          setEditData(undefined); // Use setEditData para redefinir o estado
+          setIsFormOpen(true);
+        }}
+      >
+        + Nova Tarefa
+      </button>
       {isFormOpen && (
         <EntryForm
           type="task"
